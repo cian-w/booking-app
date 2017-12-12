@@ -1,9 +1,17 @@
 <template>
-  <vue-event-calendar :events="demoEvents"></vue-event-calendar>
+  <div class="calendar">
+    <pitch-switcher></pitch-switcher>
+    <br><br><br>
+    <vue-event-calendar :events="demoEvents" @dayChanged="handleDayChange"></vue-event-calendar>
+  </div>
 </template>
 
 <script>
+import PitchSwitcher from './PitchSwitcher.vue'
+
 export default {
+  name: 'Calendar',
+  components: { PitchSwitcher },
   data () {
     return {
       demoEvents: [{
