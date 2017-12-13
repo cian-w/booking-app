@@ -57,4 +57,6 @@ export default {
     background-color: #4646e0;
   }
 
+  button:focus {outline:0;}
+
 </style>
