@@ -1,6 +1,6 @@
 <template>
-  <div class="wrapper" v-bind:class="{hideLogin: loginHidden}">
-    <form class="form-signin">
+  <div class="wrapper">
+    <form class="form-signin form" v-bind:class="{hideLogin: loginHidden}">
       <h2 class="form-signin-heading">Please login</h2>
       <input type="text" class="form-control" name="username" placeholder="Email Address" required="" autofocus="" />
       <br><br>
@@ -9,6 +9,7 @@
       <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
     </form>
     <div class="login-toggle" v-bind:class="{hideToggle: loginHidden}" v-on:click="toggleMenu">
+      <img class="toggle-icon" src="../../images/user.png">
     </div>
   </div>
 </template>
@@ -44,10 +45,11 @@
 .login-toggle {
   position: fixed;
   right: 300px;
-  top: 70px;
+  top: 85px;
   height: 60px;
-  width: 60px;
-  border: 1px solid grey;
+  width: 50px;
+  border: 2px solid #4646e0;
+  border-right: none;
   background-color: white;
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
@@ -56,16 +58,15 @@
   z-index: 100;
 }
 
-.btn {
-  cursor: pointer;
-}
-
-.wrapper {
+.form {
   position: fixed;
   right: 0;
+  top: 50px;
   width: 300px;
   height: 200px;
-  border: 1px solid grey;
+  border: 2px solid #4646e0;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
   z-index: 100;
   background-color: white;
   -webkit-transition: all 0.5s ease-out;
@@ -78,8 +79,14 @@
 }
 
 .hideLogin {
-  top: -400px;
+  right: -305px;
   -webkit-transition: all 0.5s ease-out;
 }
+
+.toggle-icon {
+   margin: 15px;
+   height: 30px;
+   width: 30px;
+ }
 
 </style>
