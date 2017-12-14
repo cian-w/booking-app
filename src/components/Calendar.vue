@@ -2,7 +2,7 @@
   <div class="calendar">
     <pitch-switcher></pitch-switcher>
     <br><br><br>
-    <vue-event-calendar :events="demoEvents" @dayChanged="handleDayChange"></vue-event-calendar>
+    <vue-event-calendar :events="demoEvents"></vue-event-calendar>
   </div>
 </template>
 
