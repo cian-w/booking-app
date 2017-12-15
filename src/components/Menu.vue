@@ -12,8 +12,9 @@
 
       <div class="menu" v-if="loggedIn === true">
         <ul>
-          <li>Book a Pitch</li>
-          <li>My Account</li>
+          <li><router-link class="navbar-brand" to="/">Calendar</router-link></li>
+          <li><router-link class="navbar-brand" to="/book">Book a Pitch</router-link></li>
+          <li><router-link class="navbar-brand" to="/account">My Account</router-link></li>
         </ul>
       </div>
     </div>
@@ -31,7 +32,7 @@
         menuHidden: true,
         username: '',
         password: '',
-        loggedIn: false
+        loggedIn: true
       }
     },
     methods: {
