@@ -2,7 +2,7 @@
   <div class="calendar">
     <pitch-switcher></pitch-switcher>
     <br><br><br>
-    <vue-event-calendar :events="demoEvents"></vue-event-calendar>
+    <vue-event-calendar :events="demoEvents" @day-changed="handleDayChanged"></vue-event-calendar>
   </div>
 </template>
 
@@ -23,6 +23,12 @@ export default {
         desc: 'description',
         customClass: 'disabled highlight' // Custom classes to an calendar cell
       }]
+    }
+  },
+
+  methods: {
+    handleDayChanged(data) {
+      this.$EventCalendar.toDate(data.date);
     }
   }
 }
