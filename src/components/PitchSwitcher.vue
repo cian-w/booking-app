@@ -36,10 +36,10 @@ export default {
     font-weight: bold;
     height: 35px;
     width: 90px;
-    border: 4px solid #4646e0;
+    border: 4px solid #3d7fe2;
     background-color: white;
     font-size: 20px;
-    color: #4646e0;
+    color: #3d7fe2;
   }
 
   .btn-astro {
@@ -54,7 +54,7 @@ export default {
 
   .active {
     color: white;
-    background-color: #4646e0;
+    background-color: #3d7fe2;
   }
 
   button:focus {outline:0;}

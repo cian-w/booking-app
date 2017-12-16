@@ -59,7 +59,7 @@
   top: 85px;
   height: 60px;
   width: 50px;
-  border: 2px solid #4646e0;
+  border: 2px solid #3d7fe2;
   border-right: none;
   background-color: white;
   border-top-left-radius: 10px;
@@ -74,9 +74,9 @@
   right: 0;
   top: 50px;
   width: 300px;
-  color: #4646e0;
+  color: #3d7fe2;
   height: 200px;
-  border: 2px solid #4646e0;
+  border: 2px solid #3d7fe2;
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
   z-index: 100;
@@ -127,7 +127,7 @@
    position: relative;
    top: 30px;
    left: -20px;
-   color: #4646e0;
+   color: #3d7fe2;
  }
 
  .btn {

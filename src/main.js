@@ -6,7 +6,7 @@ import router from './router'
 import 'vue-event-calendar/dist/style.css'
 import vueEventCalendar from 'vue-event-calendar'
 
-Vue.use(vueEventCalendar, {locale: 'en'})
+Vue.use(vueEventCalendar, {locale: 'en', color: '#3d7fe2'})
 
 Vue.config.productionTip = false
 
