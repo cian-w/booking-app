@@ -7,7 +7,7 @@
         <br><br>
         <input type="password" class="form-control password" name="password" placeholder="Password" required=""/>
         <br><br>
-        <button class="btn btn-success login-btn">Login</button>
+        <button class="btn btn-success login-btn" v-on:click="login">Login</button>
       </div>
 
       <div class="menu" v-if="loggedIn === true">
@@ -32,12 +32,12 @@
         menuHidden: true,
         username: '',
         password: '',
-        loggedIn: true
+        loggedIn: false
       }
     },
     methods: {
       login() {
-
+        this.loggedIn = true;
       },
 
       toggleMenu() {
@@ -47,6 +47,12 @@
           this.menuHidden = true;
         }
       }
+    },
+
+    created () {
+      this.$bus.$on('loggedOut', () => {
+        this.loggedIn = false;
+      })
     }
   }
 </script>

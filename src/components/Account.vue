@@ -81,6 +81,8 @@ export default {
     },
     // Log user out
     logout() {
+      this.$bus.$emit('loggedOut', 'User logged out');
+
       localStorage.clear();
       window.location.href = "http://localhost:8080/"
     }

@@ -5,10 +5,13 @@ import App from './App'
 import router from './router'
 import 'vue-event-calendar/dist/style.css'
 import vueEventCalendar from 'vue-event-calendar'
+import EventBus from './EventBus'
 
 Vue.use(vueEventCalendar, {locale: 'en', color: '#3d7fe2'})
 
 Vue.config.productionTip = false
+
+Vue.prototype.$bus = EventBus
 
 /* eslint-disable no-new */
 new Vue({
