@@ -76,7 +76,6 @@ export default {
       if(JSON.parse(localStorage.getItem("session")) == 'admin'){
         this.isAdmin = true;
       } else {
-        this.getOrderHistory();
       }
     },
     // Log user out
