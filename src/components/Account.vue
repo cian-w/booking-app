@@ -78,7 +78,7 @@ export default {
       } else {
       }
     },
-    // Log user out
+    // Log user out and emit message to notify other components.
     logout() {
       this.$bus.$emit('loggedOut', 'User logged out');
 
