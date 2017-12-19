@@ -2,33 +2,50 @@
   <div class="calendar">
     <pitch-switcher></pitch-switcher>
     <br><br><br>
-    <vue-event-calendar :events="demoEvents" @day-changed="handleDayChanged"></vue-event-calendar>
+    <vue-event-calendar :events="bookings" @day-changed="handleDayChanged"></vue-event-calendar>
   </div>
 </template>
 
 <script>
 import PitchSwitcher from './PitchSwitcher.vue'
+import endpoints from '../Endpoints.js'
 
 export default {
   name: 'Calendar',
   components: { PitchSwitcher },
   data () {
     return {
-      demoEvents: [{
-        date: '2017/12/12', // Required
-        title: 'Foo' // Required
-      }, {
-        date: '2017/12/20',
-        title: 'Bar',
-        desc: 'description',
-        customClass: 'disabled highlight' // Custom classes to an calendar cell
-      }]
+      bookings: []
     }
   },
 
   methods: {
+    // Change day on calendar
     handleDayChanged(data) {
       this.$EventCalendar.toDate(data.date);
+      this.getAstroBookings();
+    },
+
+    // Retrieve bookings for the astro pitch
+    getAstroBookings() {
+      fetch(endpoints.bookingsApi + `/astro`,{
+           method: 'GET'
+         }).then((response) => {
+           return response.json();
+         }).then((data) => {
+           this.bookings = data;
+         });
+    },
+
+    // Retrieve bookings for the grass pitch
+    getGrassBookings() {
+      fetch(endpoints.bookingsApi + `/grass`,{
+           method: 'GET'
+         }).then((response) => {
+           return response.json();
+         }).then((data) => {
+           this.bookings = data;
+         });
     }
   }
 }
