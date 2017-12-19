@@ -3,9 +3,9 @@
     <div class="form-signin form" v-bind:class="{hideMenu: menuHidden}">
       <div class="login-form" v-if="loggedIn === false">
         <h3 class="form-signin-heading">Please login</h3>
-        <input type="text" class="form-control" name="username" placeholder="Email Address" required="" autofocus="" />
+        <input type="text" class="form-control" name="username" v-model="username" placeholder="Username" required="" autofocus="" />
         <br><br>
-        <input type="password" class="form-control password" name="password" placeholder="Password" required=""/>
+        <input type="password" class="form-control password" name="password" v-model="password" placeholder="Password" required=""/>
         <br><br>
         <button class="btn btn-success login-btn" v-on:click="login">Login</button>
       </div>
@@ -25,6 +25,8 @@
 </template>
 
 <script>
+  import endpoints from '../Endpoints.js'
+
   export default {
     name: 'Menu',
     data () {
@@ -36,10 +38,30 @@
       }
     },
     methods: {
+
+      // Attempt to log user in
       login() {
-        this.loggedIn = true;
+        var userDetails = {
+          username: this.username,
+          password: this.password
+        }
+
+        fetch(endpoints.usersApi + `/login`,{
+           method: 'POST',
+           headers: {
+             'Content-Type': 'application/x-www-form-urlencoded'
+           },
+           body: JSON.stringify(userDetails)
+         }).then((response) => {
+           // If we get a status 200 - log user in to app
+           if(response.status == '200'){
+             this.loggedIn = true;
+             localStorage.setItem("session", this.username);
+           }
+         });
       },
 
+      // Toggle side menu
       toggleMenu() {
         if (this.menuHidden) {
           this.menuHidden = false;
@@ -49,6 +71,7 @@
       }
     },
 
+    // This function runs when this component is executed and holds a listener
     created () {
       this.$bus.$on('loggedOut', () => {
         this.loggedIn = false;
