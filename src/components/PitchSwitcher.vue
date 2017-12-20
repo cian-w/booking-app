@@ -10,7 +10,7 @@ export default {
   name: 'PitchSwitcher',
   data () {
     return {
-      astroActive: true,
+      astroActive: false,
       grassActive: false
     }
   },
@@ -19,11 +19,14 @@ export default {
     switchToAstro () {
       this.astroActive = true;
       this.grassActive = false;
+      this.$bus.$emit('viewing-astro', 'User chose astro');
+
     },
 
     switchToGrass () {
       this.grassActive = true;
       this.astroActive = false;
+      this.$bus.$emit('viewing-grass', 'User chose grass');
     }
   }
 }

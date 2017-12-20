@@ -23,30 +23,81 @@ export default {
     // Change day on calendar
     handleDayChanged(data) {
       this.$EventCalendar.toDate(data.date);
-      this.getAstroBookings();
+    },
+
+    // Retrieve all bookings
+    getAllBookings() {
+      this.bookings = [];
+
+      fetch(endpoints.bookingsApi + `/allbookings`,{
+         method: 'GET'
+       }).then((response) => {
+         return response.json();
+       }).then((data) => {
+         for (var i=0; i<data.length; i++){
+           var bookingObj = {
+             date: data[i].DateAt,
+             title: data[i].Title + ' - ' + data[i].TimeAt,
+             desc: data[i].Description
+           }
+           this.bookings.push(bookingObj);
+         }
+       });
     },
 
     // Retrieve bookings for the astro pitch
     getAstroBookings() {
+      this.bookings = [];
+
       fetch(endpoints.bookingsApi + `/astro`,{
-           method: 'GET'
-         }).then((response) => {
-           return response.json();
-         }).then((data) => {
-           this.bookings = data;
-         });
+         method: 'GET'
+       }).then((response) => {
+         return response.json();
+       }).then((data) => {
+         for (var i=0; i<data.length; i++){
+           var bookingObj = {
+             date: data[i].DateAt,
+             title: data[i].Title + ' - ' + data[i].TimeAt,
+             desc: data[i].Description
+           }
+           this.bookings.push(bookingObj);
+         }
+       });
     },
 
     // Retrieve bookings for the grass pitch
     getGrassBookings() {
+      this.bookings = [];
+
       fetch(endpoints.bookingsApi + `/grass`,{
-           method: 'GET'
-         }).then((response) => {
-           return response.json();
-         }).then((data) => {
-           this.bookings = data;
-         });
+         method: 'GET'
+       }).then((response) => {
+         return response.json();
+       }).then((data) => {
+         for (var i=0; i<data.length; i++){
+           var bookingObj = {
+             date: data[i].DateAt,
+             title: data[i].Title + ' - ' + data[i].TimeAt,
+             desc: data[i].Description
+           }
+           this.bookings.push(bookingObj);
+         }
+       });
     }
+
+  },
+
+  // This function runs when this component is executed and holds a listener
+  created () {
+    this.getAllBookings();
+
+    this.$bus.$on('viewing-grass', () => {
+      this.getGrassBookings();
+    })
+
+    this.$bus.$on('viewing-astro', () => {
+      this.getAstroBookings();
+    })
   }
 }
 </script>
