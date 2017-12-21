@@ -27,7 +27,7 @@
           <label for="exampleInputPassword1">Time</label>
           <input type="text" class="form-control" v-model="time" placeholder="14:00">
         </div>
-        <button class="btn btn-primary" v-on:click="book">Book Now</button>
+        <button class="btn btn-primary" v-on:click="book">Pay with Stripe</button>
       </div>
     </center>
   </div>
@@ -75,12 +75,28 @@
              },
              body: JSON.stringify(bookingData)
            }).then((response) => {
-             console.log();
-             // If we get a status 200 - alert booking successful
+             // If we get a status 200 from booking service, make Stripe payment
              if(response.status == '200'){
-               alert("Booking Successful");
+               // Communicate with Stripe to generate a secure token
+               this.$checkout.open({
+                name: 'Pay for your pitch!',
+                currency: 'EUR',
+                amount: 4500,
+                token(token) {
+                  // Finally a secure token is created. Send it
+                  // to our booking service to charge the credit card.
+                  fetch(endpoints.bookingsApi + `/charge`,{
+                     method: 'POST',
+                     headers: {
+                       'Content-Type': 'application/x-www-form-urlencoded'
+                     },
+                     body: JSON.stringify(token)
+                   })
+                }
+               });
              }
            });
+
          }
 
       }
