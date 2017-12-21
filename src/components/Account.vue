@@ -12,6 +12,13 @@
         <br><br>
         Here's some bookings you can manage.
         <br><br>
+        <div class="input-group col-lg-5">
+          <input type="text" class="form-control" placeholder="Search bookings..." v-model="searchTerm" @keyup="searchBookings">
+           <span class="input-group-btn">
+             <button class="btn btn-success" type="button">Search</button>
+           </span>
+        </div>
+        <br>
         <table class="table">
           <thead>
             <tr>
@@ -40,6 +47,13 @@
         <br><br>
         Here's your booking history.
         <br><br>
+        <div class="input-group col-lg-5">
+          <input type="text" class="form-control" placeholder="Search bookings..." v-model="searchTerm" @keyup="searchBookings">
+           <span class="input-group-btn">
+             <button class="btn btn-success" type="button">Search</button>
+           </span>
+        </div>
+        <br>
         <table class="table">
           <thead>
             <tr>
@@ -79,7 +93,8 @@ export default {
       artistName: '',
       url: '',
       artwork: {},
-      bookings: []
+      bookings: [],
+      searchTerm: ''
     }
   },
   methods: {
@@ -87,9 +102,9 @@ export default {
     checkUserType() {
       if(localStorage.getItem("session") == 'admin'){
         this.isAdmin = true;
-      } else {
       }
     },
+
     // Get all bookings for a user
     getUserBookings() {
       fetch(endpoints.bookingsApi + `/bookings`,{
@@ -100,6 +115,7 @@ export default {
            this.bookings = data;
          });
     },
+
     // Get all bookings on the system
     getAllBookings() {
       fetch(endpoints.bookingsApi + `/allbookings`,{
@@ -108,8 +124,9 @@ export default {
            return response.json();
          }).then((data) => {
            this.bookings = data;
-         });
+      });
     },
+
     // Delete booking
     deleteBooking(id) {
       var booking = {
@@ -130,6 +147,23 @@ export default {
          }
        });
     },
+
+    // Every time a key is pressed in the search field this function
+    // run  and returns appropriate results
+    searchBookings() {
+      if(this.searchTerm != '') {
+        fetch(endpoints.bookingsApi + `/search/${this.searchTerm}`,{
+          method: 'GET'
+        }).then((response) => {
+          return response.json();
+        }).then((data) => {
+          this.bookings = data;
+        });
+      } else {
+        this.getAllBookings();
+      }
+    },
+
     // Log user out and emit message to notify other components.
     logout() {
       this.$bus.$emit('loggedOut', 'User logged out');
@@ -138,6 +172,7 @@ export default {
       window.location.href = "http://localhost:8080/"
     }
   },
+
   // Call user type on load.
   mounted(){
     this.checkUserType();
@@ -151,6 +186,10 @@ export default {
 </script>
 
 <style scoped>
+  .account {
+    position: relative;
+    top: -100px;
+  }
   .account-msg{
     position: relative;
     top: 100px;
@@ -162,7 +201,7 @@ export default {
   .wrapper {
     position: relative;
     top: 120px;
-    width: 300px;
+    width: 800px;
   }
   .logout{
     position: relative;
@@ -171,10 +210,11 @@ export default {
 
   .table {
     position: relative;
-    left: -40px;
   }
 
   .delete-icon {
+    position: relative;
+    left: 10px;
     height: 30px;
     width: 30px;
     cursor: pointer;
