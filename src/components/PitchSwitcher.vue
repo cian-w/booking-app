@@ -20,7 +20,6 @@ export default {
       this.astroActive = true;
       this.grassActive = false;
       this.$bus.$emit('viewing-astro', 'User chose astro');
-
     },
 
     switchToGrass () {
